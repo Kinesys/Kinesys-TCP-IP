@@ -1,9 +1,8 @@
-//Kinesys TCP hello_client.c
 #include<stdio.h>
 #include<netinet/in.h>
-#include<sys/socket>
+#include<sys/socket.h>
 
-#define PORT 9000
+#define PORT 4000
 #define IPADDR "127.0.0.1"
 
 int main() {
@@ -11,7 +10,9 @@ int main() {
     struct sockaddr_in c_addr;
     int len;
     int n;
+
     char rcvBuffer[BUFSIZ];
+
     c_socket = socket(PF_INET, SOCK_STREAM, 0);
 
     memset(&c_addr, 0, sizeof(c_addr));
@@ -24,12 +25,13 @@ int main() {
         close(c_socket);
         return -1;
     }
+
     if((n = read(c_socket, rcvBuffer, sizeof(rcvBuffer))) < 0) {
-        return (-1);
+        return -1;
     }
 
     rcvBuffer[n] = '\0';
-    printf("Received Data : %s\n", rcvBuffer);
+    printf("received Data : %s\n", rcvBuffer);
 
     close(c_socket);
 }
